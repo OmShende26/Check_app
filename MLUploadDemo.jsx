@@ -63,11 +63,40 @@ export default function App() {
     formData.append('file', fileInputRef.current.files[0]);
 
     try {
-      // Assuming Flask is running on localhost:5000
-      const response = await fetch('http://localhost:5000/process-image', {
+      // --- START OF CHANGE ---
+      
+      // 1. Define the URL (uses environment variable if available, otherwise your hardcoded Render URL)
+      const apiUrl = process.env.REACT_APP_API_URL || 'https://check-app-3209.onrender.com';
+      
+      // 2. Make the request using that URL
+      const response = await fetch(`${apiUrl}/process-image`, {
         method: 'POST',
         body: formData,
       });
+      
+      // --- END OF CHANGE ---
+
+//       if (!response.ok) throw new Error('Failed to process image');
+
+//       const blob = await response.blob();
+//       const imageUrl = URL.createObjectURL(blob);
+//       setProcessedImage(imageUrl);
+//     } catch (err) {
+//       setError("Could not connect to Backend.");
+//       console.error(err);
+//     } finally {
+//       setIsProcessing(false);
+//     }
+//   };
+
+
+
+    // try {
+    //   // Assuming Flask is running on localhost:5000
+    //   const response = await fetch('http://localhost:5000/process-image', {
+    //     method: 'POST',
+    //     body: formData,
+    //   });
 
       if (!response.ok) throw new Error('Failed to process image');
 
